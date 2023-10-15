@@ -10,16 +10,15 @@ client_socket.connect(('127.0.0.1',port)) #'127.0.0.1' is the localhost in ipv4â
 # open a connection until sending CLOSE SOCKET
 while True:
     message=input("enter your message: ")
-    #client_socket.send(message.encode())
+    client_socket.send(message.encode())
     if(message == "CLOSE SOCKET"):
-        client_socket.close()
+        
         break
         
-    else:
-        client_socket.send(bytes(message.encode()))
-        client_message = client_socket.recv(1024).decode()
-        
-        
-        print("Server response:", client_message)
+    
+    server_response = client_socket.recv(1024).decode()
+    print("Server response:", server_response)
+
+client_socket.close()
 # send message as bytes
 #recieve respose if existh
