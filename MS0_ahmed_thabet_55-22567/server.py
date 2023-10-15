@@ -7,7 +7,7 @@ server_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 port=22567
 server_socket.bind(('127.0.0.1',port)) # '127.0.0.1' is the localhost in ipv4␣format
 # make the socket listen on this port
-server_socket.listen(port)
+server_socket.listen(1)
 # listening forever
 while True:
     client, addr = server_socket.accept()
@@ -15,12 +15,14 @@ while True:
     while True:
         recieved_message = client.recv(1024).decode()
         if recieved_message == "CLOSE SOCKET":
-            client.close()
+            
             break
-        else:
-            response = recieved_message.upper()
-            client.send(bytes(response.encode()))
-       
+        
+        response = recieved_message.upper()
+        client.send(bytes(response.encode()))
+    
+    client.close()
+
     
  # when a connection to a client is␣↪accepted
  # open a conitional conection --> break the connection when 'CLOSE SOCKET' is␣↪recieved
